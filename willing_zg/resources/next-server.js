@@ -11,7 +11,7 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
-  server.all('/api', proxy(backendUrl));
+  server.all('/api*', proxy(backendUrl));
 
   server.all('*', (req, res) => {
     return handle(req, res);
