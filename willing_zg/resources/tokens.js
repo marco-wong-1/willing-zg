@@ -21,14 +21,11 @@ class TokenFetcher {
       this.accessToken = response.data.access;
       return true;
     } catch (error) {
-      console.log('error!');
       if (error.response) {
         if (error.response.status === 401) {
-          console.log('error and 401!');
           this.clearToken();
         }
       }
-      console.log('calling onError');
       this.onError(error);
     }
     return false;
