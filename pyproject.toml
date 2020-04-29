@@ -7,7 +7,7 @@ authors = ["Bequest, Inc. <oss@willing.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-zygoat = "^0.5.0"
+zygoat = ">=0.6"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
