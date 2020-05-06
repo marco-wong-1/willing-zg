@@ -459,7 +459,7 @@ description = ""
 name = "zygoat"
 optional = false
 python-versions = ">=3.7,<4.0"
-version = "0.6.1"
+version = "0.6.4"
 
 [package.dependencies]
 click = ">=7.0,<8.0"
@@ -695,6 +695,6 @@ zipp = [
     {file = "zipp-3.1.0.tar.gz", hash = "sha256:c599e4d75c98f6798c509911d08a22e6c021d074469042177c8c86fb92eefd96"},
 ]
 zygoat = [
-    {file = "zygoat-0.6.1-py3-none-any.whl", hash = "sha256:d2ae5b3d340a80a03bd5b1a08180220879fdaec8588402efda9082a1a1dffdbd"},
-    {file = "zygoat-0.6.1.tar.gz", hash = "sha256:e6b957886f1450d597ee15274a9fd6d51b2a74bf27c64d31142456601bc66205"},
+    {file = "zygoat-0.6.4-py3-none-any.whl", hash = "sha256:4826dac68f0d3f9fb035f1e1e7439855848c9ebc6c0a6b643efd518fba12159f"},
+    {file = "zygoat-0.6.4.tar.gz", hash = "sha256:e219ad70b7530dd5568614f83bebb7aebf14477d51fa459bff39a79a1d60891f"},
 ]
