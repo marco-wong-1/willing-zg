@@ -53,9 +53,8 @@ class TokenFetcher {
     this.onSuccess = onSuccess || this.onSuccess;
     this.onError = onError || this.onError;
     if (!this.timerId) {
-      if (this.fetchToken()) {
-        this.timerId = setInterval(this.fetchToken, TOKEN_REFRESH_INTERVAL);
-      }
+      this.timerId = setInterval(this.fetchToken, TOKEN_REFRESH_INTERVAL);
+      this.fetchToken();
     }
   }
 }
