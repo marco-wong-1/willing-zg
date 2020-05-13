@@ -2,8 +2,7 @@ import axios from 'axios';
 
 const TOKEN_REFRESH_INTERVAL = 4 * 60 * 1000; // 4 min in ms
 
-// TODO change this up once portunus is deployed.
-const PORTUNUS_URL = 'https://dev.portunus.willing.com';
+const PORTUNUS_URL = process.env.PORTUNUS_URL || 'https://dev.portunus.willing.com';
 
 const defaultFetch = () =>
   axios({ method: 'post', url: `${PORTUNUS_URL}/api/auth/token/refresh/`, withCredentials: true });
