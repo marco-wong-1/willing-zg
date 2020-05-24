@@ -9,10 +9,18 @@ const defaultFetch = () =>
 
 const loginUrl = `${PORTUNUS_URL}/login`;
 
-const defaultOnError = () => {
+export const withReturn = url => {
+  if (typeof window === 'undefined') {
+    // server side rendering, so we don't know where to return to
+    return url;
+  }
   const params = new URLSearchParams();
   params.append('next', window.location.href);
-  window.location.replace(`${loginUrl}?${params.toString()}`);
+  return `${url}?${params.toString()}`;
+};
+
+const defaultOnError = () => {
+  window.location.replace(withReturn(loginUrl));
 };
 
 class TokenFetcher {
