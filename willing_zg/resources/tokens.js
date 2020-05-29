@@ -28,15 +28,28 @@ class TokenFetcher {
     this.fetchFunction = defaultFetch;
     this.onError = defaultOnError;
     this.onSuccess = () => null;
-    this.accessToken = '';
+    this.currentToken = '';
     this.timerId = null;
+    this.tokenCallbacks = []
   }
+
+  get accessToken() {
+    return new Promise(resolve => {
+      if (this.currentToken) {
+        resolve(this.currentToken);
+      } else {
+        this.tokenCallbacks.push(resolve);
+      }
+    });
+  };
 
   fetchToken = async () => {
     try {
       const response = await this.fetchFunction();
-      this.accessToken = response.data.access;
-      this.onSuccess(this.accessToken);
+      this.currentToken = response.data.access;
+      this.onSuccess(this.currentToken);
+      this.tokenCallbacks.forEach(cb => cb(this.currentToken));
+      this.tokenCallbacks = [];
       return true;
     } catch (error) {
       if (error.response) {
@@ -50,7 +63,7 @@ class TokenFetcher {
   };
 
   clearToken() {
-    this.accessToken = '';
+    this.currentToken = '';
     clearInterval(this.timerId);
     this.timerId = null;
   }
