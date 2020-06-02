@@ -30,7 +30,7 @@ class TokenFetcher {
     this.onSuccess = () => null;
     this.currentToken = '';
     this.timerId = null;
-    this.tokenCallbacks = []
+    this.tokenCallbacks = [];
   }
 
   get accessToken() {
@@ -41,7 +41,7 @@ class TokenFetcher {
         this.tokenCallbacks.push(resolve);
       }
     });
-  };
+  }
 
   fetchToken = async () => {
     try {
