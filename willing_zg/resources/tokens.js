@@ -48,8 +48,7 @@ class TokenFetcher {
       const response = await this.fetchFunction();
       this.currentToken = response.data.access;
       this.onSuccess(this.currentToken);
-      this.tokenCallbacks.forEach(cb => cb(this.currentToken));
-      this.tokenCallbacks = [];
+      this.clearCallbacks();
       return true;
     } catch (error) {
       if (error.response) {
@@ -66,6 +65,12 @@ class TokenFetcher {
     this.currentToken = '';
     clearInterval(this.timerId);
     this.timerId = null;
+    this.clearCallbacks();
+  }
+
+  clearCallbacks() {
+    this.tokenCallbacks.forEach(cb => cb(this.currentToken));
+    this.tokenCallbacks = [];
   }
 
   start(fetchFn, onSuccess, onError) {
