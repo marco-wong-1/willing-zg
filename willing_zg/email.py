@@ -17,8 +17,9 @@ log = logging.getLogger()
 """
 
 email_settings = [
-    """EMAIL_BACKEND = "django.core.mail.backends.{}.EmailBackend".format(
-    "console" if DEBUG else "smtp"
+    """# production must use SMTP. others will use DJANGO_EMAIL_BACKEND or default to "console"
+    EMAIL_BACKEND = "django.core.mail.backends.{}.EmailBackend".format(
+    env.str("DJANGO_EMAIL_BACKEND", default="console") if DEBUG else "smtp"
 )""",
     'EMAIL_HOST = "email-smtp.us-east-1.amazonaws.com"',
     "EMAIL_PORT = 587",
