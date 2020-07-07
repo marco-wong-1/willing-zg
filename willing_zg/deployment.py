@@ -14,6 +14,7 @@ log = logging.getLogger()
 
 zappa_settings = "zappa_settings.json"
 script = "deploy.py"
+dockerfile = "Dockerfile"
 
 
 class ScriptRequirements(FileComponent):
@@ -76,6 +77,13 @@ class ElasticBeanstalk(Component):
             return os.path.exists(".elasticbeanstalk")
 
 
+class FrontendProductionDockerFile(FileComponent):
+    resource_pkg = resources
+    base_path = Projects.FRONTEND
+    filename = dockerfile
+    overwrite = False
+
+
 class Deployment(Component):
     pass
 
@@ -85,5 +93,6 @@ deployment = Deployment(
         ZappaSettingsFile(sub_components=[ZappaSettingsUpdates()]),
         Script(sub_components=[ScriptRequirements()]),
         ElasticBeanstalk(),
+        FrontendProductionDockerFile(),
     ]
 )
