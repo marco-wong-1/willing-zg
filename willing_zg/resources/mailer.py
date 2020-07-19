@@ -31,7 +31,7 @@ class Mailer:
         message = EmailMultiAlternatives(
             subject=subject,
             body=email_text,
-            from_email=f"MetLife Legal Plans <{SUPPORT_EMAIL_ADDRESS}>",
+            from_email=f"MetLife Legal Plans <{settings.SUPPORT_EMAIL_ADDRESS}>",
             to=to_emails,
             bcc=bcc,
         )
