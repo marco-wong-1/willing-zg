@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "willing-zg"
-version = "0.3.2"
+version = "1.0.0"
 description = ""
 readme = "README.md"
 authors = ["Bequest, Inc. <oss@willing.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-zygoat = ">=0.6"
+zygoat = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

@@ -1,12 +1,10 @@
 import json
 import logging
-import os
 
 
 from zygoat.components import Component, FileComponent
 from zygoat.constants import Projects
 from zygoat.utils.files import use_dir
-from zygoat.utils.shell import run
 
 from . import resources
 
@@ -65,18 +63,6 @@ class ZappaSettingsUpdates(Component):
             return data["base"].get("project_name", None) is not None
 
 
-class ElasticBeanstalk(Component):
-    def create(self):
-        with use_dir(Projects.FRONTEND):
-            log.info("Calling eb init on the frontend project")
-            run(["eb", "init"])
-
-    @property
-    def installed(self):
-        with use_dir(Projects.FRONTEND):
-            return os.path.exists(".elasticbeanstalk")
-
-
 class FrontendProductionDockerFile(FileComponent):
     resource_pkg = resources
     base_path = Projects.FRONTEND
@@ -92,7 +78,6 @@ deployment = Deployment(
     sub_components=[
         ZappaSettingsFile(sub_components=[ZappaSettingsUpdates()]),
         Script(sub_components=[ScriptRequirements()]),
-        ElasticBeanstalk(),
         FrontendProductionDockerFile(),
     ]
 )

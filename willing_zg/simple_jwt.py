@@ -7,7 +7,7 @@ from zygoat.utils.backend import install_dependencies
 
 log = logging.getLogger()
 
-authentication_classes_string = """""DEFAULT_AUTHENTICATION_CLASSES": (
+authentication_classes_string = """"DEFAULT_AUTHENTICATION_CLASSES": (
         "simplejwt_extensions.authentication.JWTAuthentication",
     ),
 """

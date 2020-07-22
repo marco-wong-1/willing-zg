@@ -1,6 +1,6 @@
 from zygoat.components import Component
+from zygoat.components.backend.reformat import reformat
 
-from .custom_server import custom_server
 from .deployment import deployment
 from .email import email
 from .simple_jwt import simple_jwt
@@ -11,4 +11,6 @@ class AllComponents(Component):
     pass
 
 
-all_components = AllComponents(sub_components=[custom_server, deployment, email, simple_jwt, token_util])
+all_components = AllComponents(
+    sub_components=[deployment, email, simple_jwt, token_util, reformat]
+)
