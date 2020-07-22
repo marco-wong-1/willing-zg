@@ -7,10 +7,7 @@ from zygoat.utils.backend import install_dependencies
 
 log = logging.getLogger()
 
-authentication_classes_string = """""DEFAULT_AUTHENTICATION_CLASSES": (
-        "simplejwt_extensions.authentication.JWTAuthentication",
-    ),
-"""
+authentication_classes_string = '"DEFAULT_AUTHENTICATION_CLASSES":("simplejwt_extensions.authentication.JWTAuthentication",)'
 
 default_key_string = '''DEFAULT_VERIFYING_KEY = """-----BEGIN PUBLIC KEY-----
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC91RWCawEvxQj+tigRvuHxouO8
