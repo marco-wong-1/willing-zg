@@ -5,6 +5,7 @@ from .deployment import deployment
 from .email import email
 from .simple_jwt import simple_jwt
 from .tokens import token_util
+from .chat import chat
 
 
 class AllComponents(Component):
@@ -12,5 +13,5 @@ class AllComponents(Component):
 
 
 all_components = AllComponents(
-    sub_components=[deployment, email, simple_jwt, token_util, reformat]
+    sub_components=[deployment, email, simple_jwt, token_util, reformat, chat]
 )
