@@ -10,7 +10,7 @@ from .django_willing_zg import django_willing_zg
 from .get_env import get_env_util
 from .secrets_manager import secrets_manager_util
 from .secrets import secrets_util
-
+from .google_analytics import google_analytics
 
 __all__ = [
     "all_components",
@@ -24,6 +24,7 @@ __all__ = [
     "get_env_util",
     "secrets_manager_util",
     "secrets_util",
+    "google_analytics",
 ]
 
 __version__ = version("willing_zg")
