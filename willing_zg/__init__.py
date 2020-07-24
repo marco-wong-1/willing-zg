@@ -6,6 +6,8 @@ from .simple_jwt import simple_jwt
 from importlib_metadata import version
 from .email import email
 from .chat import chat
+from .django_willing_zg import django_willing_zg
+
 
 __all__ = [
     "all_components",
@@ -15,6 +17,7 @@ __all__ = [
     "simple_jwt",
     "email",
     "chat",
+    "django_willing_zg",
 ]
 
 __version__ = version("willing_zg")
