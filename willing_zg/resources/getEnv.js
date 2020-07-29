@@ -2,35 +2,42 @@ import axios from 'axios';
 
 const getEnv = (keys, url = '/api/zygoat/env/') => {
   const resolves = {};
-  const rejects = {};
-
   const env = {};
+  let resolveSuccess;
+
+  env.success = new Promise(resolve => {
+    resolveSuccess = resolve;
+  });
 
   for (const key of keys) {
-    env[key] = new Promise((resolve, reject) => {
+    env[key] = new Promise(resolve => {
       resolves[key] = resolve;
-      rejects[key] = reject;
-    })
+    });
   }
 
   const isSsr = typeof window === 'undefined';
   if (!isSsr) {
-    axios({method: 'GET', url}).then(response => {
-      for (const [key, resolve] of Object.entries(resolves)) {
-        resolve(response.data[key]);
-      }
-    }).catch(() => {
-      for (const reject of Object.values(rejects)) {
-        reject();
-      }
-    });
+    axios({ method: 'GET', url })
+      .then(response => {
+        for (const [key, resolve] of Object.entries(resolves)) {
+          resolve(response.data[key]);
+        }
+        resolveSuccess(true);
+      })
+      .catch(() => {
+        for (const resolve of Object.values(resolves)) {
+          resolve(null);
+        }
+        resolveSuccess(false);
+      });
+  } else {
+    for (const resolve of Object.values(resolves)) {
+      resolve(null);
+    }
+    resolveSuccess(true);
   }
 
-  env.success = keys.length
-    ? Object.values(env)[0].then(() => true).catch(() => false)
-    : new Promise(resolve => resolve(true));
-
-  return env
+  return env;
 };
 
 export default getEnv;
