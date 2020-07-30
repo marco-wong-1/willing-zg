@@ -12,11 +12,14 @@ authentication_classes_string = """"DEFAULT_AUTHENTICATION_CLASSES": (
     ),
 """
 
-default_key_string = '''DEFAULT_VERIFYING_KEY = """-----BEGIN PUBLIC KEY-----
-MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC91RWCawEvxQj+tigRvuHxouO8
+default_key_string = '''DEFAULT_VERIFYING_KEY = """MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC91RWCawEvxQj+tigRvuHxouO8
 jKd35ukUxFBFRAGcI57firbAkFII6zPIiWAENGMqtjX57hk9EjAZ27XvQ4SQACvD
 5j7htsJT31bZbVUH7a3JEDpxa02VXpXdfPYSs8umZkdxMxxmiD9uH9VmLN3VS14l
-xQlyJdlvbLmNCAf6uwIDAQAB
+xQlyJdlvbLmNCAf6uwIDAQAB"""
+'''
+
+verifying_key_string = '''VERIFYING_KEY = f"""-----BEGIN PUBLIC KEY-----
+{prod_required_env("DJANGO_JWT_VERIFYING_KEY", DEFAULT_VERIFYING_KEY)}
 -----END PUBLIC KEY-----"""
 '''
 
@@ -24,7 +27,7 @@ simple_jwt_string = """SIMPLE_JWT = {
     "USER_ID_FIELD": "public_id",
     "ALGORITHM": "RS512",
     "SIGNING_KEY": None,
-    "VERIFYING_KEY": prod_required_env("DJANGO_JWT_VERIFYING_KEY", DEFAULT_VERIFYING_KEY),
+    "VERIFYING_KEY": VERIFYING_KEY,
 }
 """
 
@@ -37,7 +40,7 @@ class SimpleJWTSettings(SettingsComponent):
         rest_framework_settings.append(authentication_classes_string)
 
         red.extend(
-            ["\n", default_key_string, "\n", simple_jwt_string,]
+            ["\n", default_key_string, "\n", verifying_key_string, "\n", simple_jwt_string]
         )
 
         log.info("Dumping Django SimpleJWT settings")
