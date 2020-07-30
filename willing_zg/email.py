@@ -28,7 +28,7 @@ email_settings = [
 
 support_settings = [
     'SUPPORT_PHONE_NUMBER = "+1 (855) 943-4177"',
-    'SUPPORT_EMAIL_ADDRESS = "support@legalplans.com"',
+    'SUPPORT_EMAIL_ADDRESS = "clientservice@legalplans.com"',
     'PANEL_EMAIL_ADDRESS = "panel@legalplans.com"',
 ]
 
