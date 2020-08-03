@@ -11,7 +11,9 @@ class Mailer:
     """ The Mailer class holds helper functions for sending template emails """
 
     @classmethod
-    def send_email(cls, to_emails, subject, template, context, bcc=None, attachments=None):
+    def send_email(
+        cls, to_emails, subject, template, context, bcc=None, attachments=None, reply_to=None
+    ):
         if not len(to_emails):
             raise MailerError("no TO EMAIL provided")
 
@@ -34,6 +36,7 @@ class Mailer:
             from_email=f"MetLife Legal Plans <{settings.SUPPORT_EMAIL_ADDRESS}>",
             to=to_emails,
             bcc=bcc,
+            reply_to=reply_to,
         )
 
         message.attach_alternative(email_html, "text/html")
