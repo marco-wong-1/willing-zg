@@ -1,6 +1,6 @@
 import logging
 
-from zygoat.components import Component, SettingsComponent
+from zygoat.components import SettingsComponent
 
 log = logging.getLogger()
 
@@ -53,8 +53,4 @@ class SecretsSettings(SettingsComponent):
         return dbSecretInstalled is not None and djangoEmailInstalled is not None
 
 
-class Secrets(Component):
-    pass
-
-
-secrets_util = Secrets(sub_components=[SecretsSettings()])
+secrets_util = SecretsSettings()

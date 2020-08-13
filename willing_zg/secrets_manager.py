@@ -1,6 +1,6 @@
 import logging
 
-from zygoat.components import Component, SettingsComponent
+from zygoat.components import SettingsComponent
 
 log = logging.getLogger()
 
@@ -38,8 +38,4 @@ class SecretsManagerSettings(SettingsComponent):
         return red.find("def", "get_secret") is not None
 
 
-class SecretsManager(Component):
-    pass
-
-
-secrets_manager_util = SecretsManager(sub_components=[SecretsManagerSettings()])
+secrets_manager_util = SecretsManagerSettings()
