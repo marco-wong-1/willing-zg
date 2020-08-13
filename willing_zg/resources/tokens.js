@@ -2,13 +2,14 @@ import axios from 'axios';
 
 const TOKEN_REFRESH_INTERVAL = 4 * 60 * 1000; // 4 min in ms
 
-export const withReturn = url => {
+export const withReturn = (url, includePath = true) => {
   if (typeof window === 'undefined') {
     // server side rendering, so we don't know where to return to
     return url;
   }
+  const next = includePath ? window.location.href : window.location.origin;
   const params = new URLSearchParams();
-  params.append('next', window.location.href);
+  params.append('next', next);
   return `${url}?${params.toString()}`;
 };
 
@@ -24,7 +25,7 @@ class TokenFetcher {
   }
 
   get loginUrl() {
-    return withReturn(`${this.portunusUrl}/login`);
+    return withReturn(`${this.portunusUrl}/login`, false);
   }
 
   defaultFetch() {
