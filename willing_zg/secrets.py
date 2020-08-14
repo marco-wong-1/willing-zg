@@ -4,7 +4,7 @@ from zygoat.components import SettingsComponent
 
 log = logging.getLogger()
 
-# Get secrets from serets manager via get_secret() function
+# Get secrets from secrets manager via get_secret() function
 
 database_secret = """if "DATABASE_SECRET" in os.environ:
     db_secret = json.loads(get_secret(os.environ["DATABASE_SECRET"])["SecretString"])
