@@ -22,10 +22,15 @@ class TokenFetcher {
     this.currentToken = '';
     this.timerId = null;
     this.tokenCallbacks = [];
+    this.lastFetchedAt = Date.now();
+  }
+
+  get isLastFetchExpired() {
+    return Date.now() - this.lastFetchedAt > TOKEN_REFRESH_INTERVAL;
   }
 
   get loginUrl() {
-    return withReturn(`${this.portunusUrl}/login`, false);
+    return withReturn(this.portunusUrl, false);
   }
 
   defaultFetch() {
@@ -45,7 +50,11 @@ class TokenFetcher {
   get accessToken() {
     return new Promise(resolve => {
       if (this.currentToken) {
-        resolve(this.currentToken);
+        if (this.isLastFetchExpired) {
+          this.startAutoFetch().then(() => resolve(this.currentToken));
+        } else {
+          resolve(this.currentToken);
+        }
       } else {
         this.tokenCallbacks.push(resolve);
       }
@@ -54,8 +63,10 @@ class TokenFetcher {
 
   fetchToken = async () => {
     try {
+      this.currentToken = '';
       const response = await this.fetchFunction();
       this.currentToken = response.data.access;
+      this.lastFetchedAt = Date.now();
       this.onSuccess(this.currentToken);
       this.clearCallbacks();
       return true;
@@ -77,6 +88,14 @@ class TokenFetcher {
     this.clearCallbacks();
   }
 
+  startAutoFetch() {
+    if (this.timerId) {
+      clearInterval(this.timerId);
+    }
+    this.timerId = setInterval(this.fetchToken, TOKEN_REFRESH_INTERVAL);
+    return this.fetchToken();
+  }
+
   clearCallbacks() {
     this.tokenCallbacks.forEach(cb => cb(this.currentToken));
     this.tokenCallbacks = [];
@@ -88,8 +107,7 @@ class TokenFetcher {
     this.onSuccess = onSuccess || this.defaultOnSuccess;
     this.onError = onError || this.defaultOnError;
     if (!this.timerId) {
-      this.timerId = setInterval(this.fetchToken, TOKEN_REFRESH_INTERVAL);
-      this.fetchToken();
+      this.startAutoFetch();
     }
   }
 }
