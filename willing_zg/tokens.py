@@ -11,7 +11,7 @@ class TokenFile(FileComponent):
     resource_pkg = resources
     base_path = FrontendUtils
     filename = TOKEN_FILE
-    overwrite = True
+    overwrite = False
 
 
 token_util = TokenFile()
