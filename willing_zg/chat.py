@@ -12,6 +12,7 @@ log = logging.getLogger()
     This file contains a chat component and settings.
 """
 
+
 class ChatSettings(FileComponent):
     resource_pkg = resources
     base_path = os.path.join(Projects.FRONTEND, "utils", "constants")
@@ -23,6 +24,7 @@ class ChatWidget(FileComponent):
     resource_pkg = resources
     base_path = os.path.join(Projects.FRONTEND, "components")
     filename = "ChatWidget.js"
+    overwrite = False
 
 
 class Chat(Component):
