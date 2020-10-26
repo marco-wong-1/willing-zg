@@ -34,7 +34,10 @@ class DjangoWillingZgSettings(SettingsComponent):
     @property
     def installed(self):
         red = self.parse()
-        return "willing_zg" in red.find("name", value="INSTALLED_APPS").parent.value
+        return (
+            "willing_zg"
+            in red.find("name", value="INSTALLED_APPS").parent.value.to_python()
+        )
 
 
 class DjangoWillingZg(Component):
