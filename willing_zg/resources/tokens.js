@@ -8,8 +8,10 @@ export const withReturn = (url, includePath = true) => {
     return url;
   }
   const next = includePath ? window.location.href : window.location.origin;
+  const home = window.location.origin;
   const params = new URLSearchParams();
   params.append('next', next);
+  params.append('next', home);
   return `${url}?${params.toString()}`;
 };
 
