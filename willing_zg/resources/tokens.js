@@ -11,7 +11,7 @@ export const withReturn = (url, includePath = true) => {
   const home = window.location.origin;
   const params = new URLSearchParams();
   params.append('next', next);
-  params.append('next', home);
+  params.append('home', home);
   return `${url}?${params.toString()}`;
 };
 
